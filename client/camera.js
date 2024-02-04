@@ -37,7 +37,7 @@ export function createPedEditCamera() {
 
         native.pointCamAtCoord(camera, startPosition.x, startPosition.y, startPosition.z);
         native.setCamActive(camera, true);
-        native.renderScriptCams(true, false, 0, true, false);
+        native.renderScriptCams(true, false, 0, true, false, 0);
     }
 
     cameraControlsInterval = alt.setInterval(handleControls, 0);
@@ -54,7 +54,7 @@ export function destroyPedEditCamera() {
     }
 
     native.destroyAllCams(true);
-    native.renderScriptCams(false, false, 0, false, false);
+    native.renderScriptCams(false, false, 0, false, false, 0);
 
     zpos = 0;
     fov = 90;
@@ -76,7 +76,7 @@ function handleControls() {
     native.disableControlAction(0, 34, true); // a
     native.disableControlAction(0, 35, true); // d
 
-    const [_, width] = native.getActiveScreenResolution(0, 0);
+    const [_, width] = native.getActualScreenResolution(0, 0);
     const cursor = alt.getCursorPos();
     const _x = cursor.x;
     let oldHeading = native.getEntityHeading(alt.Player.local.scriptID);
@@ -92,7 +92,7 @@ function handleControls() {
 
             native.setCamFov(camera, fov);
             native.setCamActive(camera, true);
-            native.renderScriptCams(true, false, 0, true, false);
+            native.renderScriptCams(true, false, 0, true, false, 0);
         }
     }
 
@@ -107,7 +107,7 @@ function handleControls() {
 
             native.setCamFov(camera, fov);
             native.setCamActive(camera, true);
-            native.renderScriptCams(true, false, 0, true, false);
+            native.renderScriptCams(true, false, 0, true, false, 0);
         }
     }
 
@@ -121,7 +121,7 @@ function handleControls() {
         native.setCamCoord(camera, startCamPosition.x, startCamPosition.y, startCamPosition.z + zpos);
         native.pointCamAtCoord(camera, startPosition.x, startPosition.y, startPosition.z + zpos);
         native.setCamActive(camera, true);
-        native.renderScriptCams(true, false, 0, true, false);
+        native.renderScriptCams(true, false, 0, true, false, 0);
     }
 
     if (native.isDisabledControlPressed(0, 33)) {
@@ -134,7 +134,7 @@ function handleControls() {
         native.setCamCoord(camera, startCamPosition.x, startCamPosition.y, startCamPosition.z + zpos);
         native.pointCamAtCoord(camera, startPosition.x, startPosition.y, startPosition.z + zpos);
         native.setCamActive(camera, true);
-        native.renderScriptCams(true, false, 0, true, false);
+        native.renderScriptCams(true, false, 0, true, false, 0);
     }
 
     // rmb
@@ -182,7 +182,7 @@ export function setFov(value) {
 
     native.setCamFov(camera, fov);
     native.setCamActive(camera, true);
-    native.renderScriptCams(true, false, 0, true, false);
+    native.renderScriptCams(true, false, 0, true, false, 0);
 }
 
 export function setZPos(value) {
@@ -191,5 +191,5 @@ export function setZPos(value) {
     native.setCamCoord(camera, startCamPosition.x, startCamPosition.y, startCamPosition.z + zpos);
     native.pointCamAtCoord(camera, startPosition.x, startPosition.y, startPosition.z + zpos);
     native.setCamActive(camera, true);
-    native.renderScriptCams(true, false, 0, true, false);
+    native.renderScriptCams(true, false, 0, true, false ,0);
 }

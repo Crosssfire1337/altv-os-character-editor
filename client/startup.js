@@ -1,1 +1,1 @@
-import * as editor from '/client/editor';
+import * as editor from '/client/editor.js';

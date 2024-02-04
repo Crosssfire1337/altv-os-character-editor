@@ -1,7 +1,7 @@
 /// <reference types="@altv/types-client" />
 import * as alt from 'alt';
 import * as native from 'natives';
-import { createPedEditCamera, destroyPedEditCamera, setFov, setZPos } from './camera';
+import { createPedEditCamera, destroyPedEditCamera, setFov, setZPos } from './camera.js';
 
 const fModel = alt.hash('mp_f_freemode_01');
 const mModel = alt.hash(`mp_m_freemode_01`);
@@ -105,7 +105,7 @@ function handleFinishSync() {
     // Facial Features
     for (let i = 0; i < tempData.structure.length; i++) {
         const value = tempData.structure[i];
-        native.setPedFaceFeature(alt.Player.local.scriptID, i, value);
+        native.setPedMicroMorph(alt.Player.local.scriptID, i, value);
     }
 
     // Overlay Features - NO COLORS
@@ -119,26 +119,26 @@ function handleFinishSync() {
     const overlay = native.getHashKey(tempData.hairOverlay.overlay);
     native.addPedDecorationFromHashes(alt.Player.local.scriptID, collection, overlay);
     native.setPedComponentVariation(alt.Player.local.scriptID, 2, tempData.hair, 0, 0);
-    native.setPedHairColor(alt.Player.local.scriptID, tempData.hairColor1, tempData.hairColor2);
+    native.setPedHairTint(alt.Player.local.scriptID, tempData.hairColor1, tempData.hairColor2);
 
     // Facial Hair
     native.setPedHeadOverlay(alt.Player.local.scriptID, 1, tempData.facialHair, tempData.facialHairOpacity);
-    native.setPedHeadOverlayColor(alt.Player.local.scriptID, 1, 1, tempData.facialHairColor1, tempData.facialHairColor1);
+    native.setPedHeadOverlayTint(alt.Player.local.scriptID, 1, 1, tempData.facialHairColor1, tempData.facialHairColor1);
 
     // Eyebrows
     native.setPedHeadOverlay(alt.Player.local.scriptID, 2, tempData.eyebrows, 1);
-    native.setPedHeadOverlayColor(alt.Player.local.scriptID, 2, 1, tempData.eyebrowsColor1, tempData.eyebrowsColor1);
+    native.setPedHeadOverlayTint(alt.Player.local.scriptID, 2, 1, tempData.eyebrowsColor1, tempData.eyebrowsColor1);
 
     // Decor
     for (let i = 0; i < tempData.colorOverlays.length; i++) {
         const overlay = tempData.colorOverlays[i];
         const color2 = overlay.color2 ? overlay.color2 : overlay.color1;
         native.setPedHeadOverlay(alt.Player.local.scriptID, overlay.id, overlay.value, parseFloat(overlay.opacity));
-        native.setPedHeadOverlayColor(alt.Player.local.scriptID, overlay.id, 1, overlay.color1, color2);
+        native.setPedHeadOverlayTint(alt.Player.local.scriptID, overlay.id, 1, overlay.color1, color2);
     }
 
     // Eyes
-    native.setPedEyeColor(alt.Player.local.scriptID, tempData.eyes);
+    native.setHeadBlendEyeColor(alt.Player.local.scriptID, tempData.eyes);
 
     if (tempData.sex === 0) {
         native.setPedComponentVariation(alt.Player.local.scriptID, 3, 15, 0, 0); // arms
